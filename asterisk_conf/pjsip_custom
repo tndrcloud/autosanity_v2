@@ -1,0 +1,40 @@
+"""example of domain settings"""
+
+[{domain}]
+  type=endpoint
+  transport=transport-udp
+  context=sanity-in
+  disallow=all
+  allow=alaw
+  allow=ulaw
+  outbound_auth={domain}_auth
+  aors={domain}_aor
+  from_user={username}
+  from_domain={domain}
+  direct_media=no
+  force_rport=yes
+  contact_user={username}
+
+[{domain}_auth]
+  type=auth
+  auth_type=userpass
+  password={password}
+  username={username}
+
+[{domain}_aor]
+  type=aor
+  contact=sip:{domain}
+  qualify_frequency=30
+
+[{domain}_reg]
+  type=registration
+  transport=transport-udp
+  outbound_auth={domain}_auth
+  server_uri=sip:{domain}
+  client_uri=sip:{username}@{domain}
+  retry_interval=60
+  expiration=600
+  contact_user={username}
+  endpoint={domain}
+  line=yes
+  
